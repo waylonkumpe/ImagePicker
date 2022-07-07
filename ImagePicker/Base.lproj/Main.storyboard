@@ -72,6 +72,7 @@
                         <outlet property="bottomTextField" destination="cV0-vV-Ncv" id="obc-Fu-zoJ"/>
                         <outlet property="cameraButton" destination="Kfj-12-vSl" id="JZN-Yo-QUe"/>
                         <outlet property="imagePickerView" destination="nxm-jX-Hkr" id="4fj-02-Ko7"/>
+                        <outlet property="imageView" destination="nxm-jX-Hkr" id="Ech-LV-y1P"/>
                         <outlet property="pickImageButton" destination="sS0-1U-6ht" id="mVX-7W-0BQ"/>
                         <outlet property="topTextField" destination="Ig7-LC-zm4" id="dMR-37-ogc"/>
                     </connections>
