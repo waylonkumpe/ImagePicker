@@ -21,7 +21,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomToolBar: UIToolbar!
     
     
-    let MemeTextFieldDelegate = MemeTextDelegate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +82,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
+    
     // MARK: Subscribe to Keyboard Notifications
 
     // Nofifies when keyboard appears/disappears
@@ -111,12 +111,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func save(memedImage: UIImage) {
         // Create the meme
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
-        initView(clearValues: true, hideToolbars: false)
-        
-        // Add it to the memes array in the Application Delegate
-        let object = UIApplication.shared.delegate
-        let appDelegate = object as! AppDelegate
-        appDelegate.memes.append(meme)
     }
     
     func share(){
@@ -135,7 +129,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateMemedImage() -> UIImage {
         
         // Hide toolbar and navbar
-        initView(clearValues: false, hideToolbars: true)
+       
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -144,30 +138,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        initView(clearValues: false, hideToolbars: false)
+        
         return memedImage
     }
     
-    func initView(clearValues: Bool, hideToolbars: Bool){
-        if clearValues{
-            topTextField.text = "TOP"
-            bottomTextField.text = "BOTTOM"
-            imagePickerView.image  = nil
-            initButtons(enableShare: false)
-        }
-        bottomToolBar.isHidden = hideToolbars
-        topToolBar.isHidden = hideToolbars
-    }
-    
-    func initButtons(enableShare: Bool){
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        sendButton.isEnabled = enableShare
-    }
-    
-    func initTextFields(_ textField: UITextField){
-        textField.delegate = MemeTextFieldDelegate
-        textField.defaultTextAttributes = MemeTextFieldDelegate.memeTextAttributes
-        textField.textAlignment = .center
-    }
 }
 
