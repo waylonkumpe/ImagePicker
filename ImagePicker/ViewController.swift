@@ -24,10 +24,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initTextFields(topTextField)
-        initTextFields(bottomTextField)
-        initView(clearValues: true, hideToolbars: false)
-        initButtons(enableShare: false)
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
+        topTextField.textAlignment = .center
+        bottomTextField.textAlignment = .center
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -108,17 +109,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func save(memedImage: UIImage) {
+   // func save(memedImage: UIImage) {
         // Create the meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
-    }
+    //    let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imagePickerView.image!, memedImage: memedImage)
+  //  }
     
     func share(){
         let image = generateMemedImage()
         let controller = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         controller.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) -> () in
             if completed {
-                self.save(memedImage: image)
+              //  self.save(memedImage: image)
                 self.dismiss(animated: true, completion: nil)
                 
             }
@@ -141,6 +142,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         return memedImage
     }
+    
+    let memeTextAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.strokeColor: UIColor.black,
+        NSAttributedString.Key.foregroundColor: UIColor.white,
+        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSAttributedString.Key.strokeWidth:  -3.0
+    ]
+
+   // topTextField.defaultTextAttributes = memeTextAttributes
+   // bottomTextField.defaultTextAttributes = memeTextAttributes
     
 }
 
